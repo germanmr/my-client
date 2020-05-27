@@ -1,0 +1,43 @@
+version: '3'
+services:
+  app:
+    image: my-store
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+    networks:
+      - mystore-network
+  redis:
+    image: "redis:alpine"
+    command: [ "redis-server", "--protected-mode", "no" ]
+    ports:
+      - "6379:6379"
+    networks:
+      - mystore-network
+
+networks:
+  mystore-network:
+
+#####################################################################
+#                USING LINK VERSION!!
+#version: '2'
+#services:
+#  app:
+#    #build: .
+##    image: german1982/my-store
+#    image: my-store
+#    ports:
+#      - "8080:8080"
+#    links:
+#      - "db:redis"
+#    depends_on:
+#      - db
+#  db:
+#    image: "redis:alpine"
+#    command: [ "redis-server", "--protected-mode", "no" ]
+#    hostname: localhost
+#    ports:
+#      - "6379:6379"
+#####################################################################
+
