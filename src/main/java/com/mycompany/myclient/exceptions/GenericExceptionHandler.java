@@ -16,7 +16,6 @@ public class GenericExceptionHandler {
         requireNonNull(e);
         String errorCode = UUID.randomUUID().toString();
         return new GenericError(errorCode, "A runtime Exception has occurred!");
-
     }
 
     @ExceptionHandler(NoClientsFoundException.class)
@@ -24,6 +23,13 @@ public class GenericExceptionHandler {
         requireNonNull(e);
         String errorCode = UUID.randomUUID().toString();
         return new GenericError(errorCode, "We didn´t find any clients!");
+    }
+
+    @ExceptionHandler(NoClientFoundException.class)
+    public GenericError handleNoClientFoundException(@Nonnull NoClientFoundException e) {
+        requireNonNull(e);
+        String errorCode = UUID.randomUUID().toString();
+        return new GenericError(errorCode, "We didn´t find any client!");
     }
 
 

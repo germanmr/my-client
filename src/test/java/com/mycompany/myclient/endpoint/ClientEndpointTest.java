@@ -2,6 +2,7 @@ package com.mycompany.myclient.endpoint;
 
 import com.mycompany.myclient.dto.ClientDto;
 import com.mycompany.myclient.service.ClientService;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -10,6 +11,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.HashSet;
 import java.util.Set;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -24,19 +26,19 @@ public class ClientEndpointTest {
     @Mock
     private ClientService clientService;
 
-    //    @Test
+    @Test
     public void get() {
 
         ClientDto expected = new ClientDto(1, "German");
 
-        when(clientService.getById(CLIENT_ID)).thenReturn(expected);
+        when(clientService.getByIdJpa(requireNonNull(CLIENT_ID))).thenReturn(expected);
 
         ClientDto actual = clientEndpoint.get(CLIENT_ID);
 
         assertEquals(expected, actual);
     }
 
-    //    @Test
+    @Test
     public void getAll() {
 
         Set<ClientDto> clientDtos = new HashSet<>();

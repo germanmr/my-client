@@ -25,6 +25,8 @@
         <javaxinject.version>1</javaxinject.version>
         <mockito.version>3.3.3</mockito.version>
         <guava.version>29.0-jre</guava.version>
+        <maven.findbugs.plugin.version>3.0.5</maven.findbugs.plugin.version>
+        <postgresql.version>42.2.12</postgresql.version>
     </properties>
 
     <dependencies>
@@ -76,11 +78,43 @@
             <artifactId>spring-data-jpa</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
 
     </dependencies>
 
     <build>
         <plugins>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>${maven.findbugs.plugin.version}</version>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/findbugs</outputDirectory>
+                    <xmlOutput>true</xmlOutput>
+                    <xmlOutputDirectory>target/findbugs</xmlOutputDirectory>
+                    <threshold>Low</threshold>
+                    <effort>Max</effort>
+                    <failOnError>true</failOnError>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

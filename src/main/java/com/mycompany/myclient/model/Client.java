@@ -1,35 +1,40 @@
 package com.mycompany.myclient.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.Objects;
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-
+@Entity
 public class Client {
 
+    @Id
+    @GeneratedValue
     private Long id;
-    private String externalId;
+
+    @Column(nullable = false)
     private String name;
 
-    public Client(Long id, String externalId, String name) {
-        this.id = id;
-        this.externalId = externalId;
+    @OneToMany(mappedBy = "client")
+    private List<Address> addresses = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "clients")
+    private List<Phone> phones = new ArrayList<>();
+
+    @UpdateTimestamp
+    private LocalDateTime lastUpdatedDate;
+
+    @CreationTimestamp
+    private LocalDateTime createdDate;
+
+    protected Client() {
+    }
+
+    public Client(String name) {
         this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getExternalId() {
-        return externalId;
-    }
-
-    public void setExternalId(String externalId) {
-        this.externalId = externalId;
     }
 
     public String getName() {
@@ -40,27 +45,31 @@ public class Client {
         this.name = name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Client)) return false;
-        Client client = (Client) o;
-        return Objects.equals(id, client.id) &&
-                Objects.equals(externalId, client.externalId) &&
-                Objects.equals(name, client.name);
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, externalId, name);
+    public List<Address> getAddress() {
+        return addresses;
     }
 
-    @Override
-    public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", externalId='" + externalId + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+    public void addAddress(Address addres) {
+        this.addresses.add(addres);
+    }
+
+    public void removeAddress(Address address) {
+        this.addresses.remove(address);
+    }
+
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    public void addPhone(Phone phone) {
+        this.phones.add(phone);
+    }
+
+    public Long getId() {
+        return id;
     }
 }
