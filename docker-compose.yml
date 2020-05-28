@@ -1,43 +1,18 @@
-version: '3'
+version: '3.1'
 services:
-  app:
-    image: my-store
+  my-client:
+    container_name: my-client
+    image: my-client
+    build: ./
     ports:
       - "8080:8080"
     depends_on:
-      - redis
-    networks:
-      - mystore-network
-  redis:
-    image: "redis:alpine"
-    command: [ "redis-server", "--protected-mode", "no" ]
+      - dbpostgresql
+  dbpostgresql:
+    image: postgres
     ports:
-      - "6379:6379"
-    networks:
-      - mystore-network
-
-networks:
-  mystore-network:
-
-#####################################################################
-#                USING LINK VERSION!!
-#version: '2'
-#services:
-#  app:
-#    #build: .
-##    image: german1982/my-store
-#    image: my-store
-#    ports:
-#      - "8080:8080"
-#    links:
-#      - "db:redis"
-#    depends_on:
-#      - db
-#  db:
-#    image: "redis:alpine"
-#    command: [ "redis-server", "--protected-mode", "no" ]
-#    hostname: localhost
-#    ports:
-#      - "6379:6379"
-#####################################################################
-
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=mydb

@@ -22,24 +22,7 @@ echo "Copy the docker file"
 cp Dockerfile target/Dockerfile
 echo "------------------------------------------------"
 echo "Build the image"
-docker build -t my-store target/
+docker build -t my-client target/
 echo "------------------------------------------------"
 echo "Starting with docker-compose"
 docker-compose up
-# Remove docker image from dockerHub
-#	curl -X DELETE -u "german1982:tato29001807" https://index.docker.io/v1/repositories/german1982/my-store/
-
-# docker image tag my-store german1982/my-store
-# We have to tag the image with german1982/ before!
-#	docker image tag my-store german1982/my-store
-# Upload to docker Hub
-#	docker image push german1982/my-store
-
-############################################################################
-#				Stand alone modes!!!
-#
-#Run redis ( and pull ):
-#	docker run -d -p 6379:6379 redis
-#
-#Docker run image alone:
-#	docker container run -p 8080:8080 -d my-store
