@@ -2,7 +2,7 @@ version: '3.1'
 services:
   my-client:
     container_name: my-client
-    image: my-client
+    image: german1982/my-client
     build: ./
     ports:
       - "8080:8080"
