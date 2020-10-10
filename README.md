@@ -30,8 +30,10 @@ The configuration is located in `src/resources/application.properties`.
 ### Build an executable WAR
 You can run the application from the command line using:
 ```
-mvn spring-boot:run
+mvn spring-boot:run -Dspring.profiles.active=local
 ```
+or add this: "-Dspring.profiles.active=local" local profile on VMoptions
+
 Or you can build a single executable WAR file that contains all the necessary dependencies, classes, and resources with:
 ```
 mvn clean package
