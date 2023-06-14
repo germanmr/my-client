@@ -24,7 +24,7 @@
         <javax.version>2.0.1.Final</javax.version>
         <javaxinject.version>1</javaxinject.version>
         <mockito.version>3.3.3</mockito.version>
-        <guava.version>29.0-jre</guava.version>
+        <guava.version>32.0.0-jre</guava.version>
         <maven.findbugs.plugin.version>3.0.5</maven.findbugs.plugin.version>
         <postgresql.version>42.2.12</postgresql.version>
         <dockerfile-maven-version>1.4.13</dockerfile-maven-version>
